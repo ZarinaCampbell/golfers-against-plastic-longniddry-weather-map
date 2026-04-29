@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Longniddry Golf Course Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+    </style>
+</head>
+<body>
+    <h1>Longniddry Golf Course Map</h1>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([55.9986, -2.8584], 15);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Add click event to the map
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+            // Call the Flask /wind endpoint with clicked coordinates
+            fetch(`/wind?lat=${lat}&lng=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Display wind information in a popup
+                    var windInfo = `Speed: ${data.speed} mph\nDirection: ${data.direction}° (${data.direction_text})\nGusts: ${data.gusts}`;
+                    L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent(windInfo)
+                        .openOn(map);
+                });
+        });
+    </script>
+</body>
+</html>
