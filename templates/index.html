@@ -21,19 +21,45 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
         }
 
         /* Custom cursor as golfer image */
         body {
             cursor: url('/static/golfer-cursor.png'), auto;
         }
+
+        /* Title and Reset Button Layout */
+        h1 {
+            margin-top: 60px; /* Move the title down to avoid overlap with reset button */
+            text-align: center;
+        }
+
+        /* Reset button styles */
+        #reset-button {
+            position: fixed;
+            top: 70px; /* Move button down to avoid overlap with title */
+            left: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #reset-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <h1>Golfers Against Plastic: Wind Map</h1>
     <div id="map"></div>
+
+    <!-- Reset Button -->
+    <button id="reset-button">Reset Map</button>
 
     <!-- Compass Image -->
     <img id="compass" src="/static/compass.png" alt="Compass">
@@ -44,6 +70,9 @@
     <script>
         // Initialize the map
         var map = L.map('map').setView([55.9986, -2.8584], 15);
+
+        // Array to hold references to wind arrow markers
+        var windArrows = [];
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -58,8 +87,11 @@
                 iconSize: [30, 30]  // Set the size of the arrow marker
             });
 
-            // Add the wind direction arrow at the specified coordinates
-            L.marker([lat, lng], { icon: arrowIcon }).addTo(map);
+            // Create the wind direction arrow marker and add it to the map
+            var arrowMarker = L.marker([lat, lng], { icon: arrowIcon }).addTo(map);
+
+            // Store the arrow marker for later removal
+            windArrows.push(arrowMarker);
         }
 
         // Add click event to the map
@@ -75,16 +107,32 @@
                     var windDirection = data.direction;  // Wind direction in degrees
                     var windInfo = `Speed: ${data.speed} mph\nDirection: ${data.direction}° (${data.direction_text})\nGusts: ${data.gusts}`;
 
-                    // Display wind information in a popup
-                    L.popup()
-                        .setLatLng(e.latlng)
-                        .setContent(windInfo)
-                        .openOn(map);
+                    // Display wind information in a popup with offset (popup will appear above the click point)
+                    L.popup({
+                        offset: L.point(0, -30)  // Move the popup 30px above the clicked position
+                    })
+                    .setLatLng(e.latlng)
+                    .setContent(windInfo)
+                    .openOn(map);
 
                     // Add wind direction arrow (rotating marker) based on the direction
                     addWindArrow(lat, lng, windDirection);
                 });
         });
+
+        // Reset Map Function
+        document.getElementById('reset-button').onclick = function() {
+            // Reset to the initial coordinates and zoom level
+            map.setView([55.9986, -2.8584], 15);
+
+            // Remove all wind arrows from the map
+            windArrows.forEach(function(marker) {
+                map.removeLayer(marker);
+            });
+
+            // Clear the windArrows array
+            windArrows = [];
+        };
     </script>
 </body>
 </html>
