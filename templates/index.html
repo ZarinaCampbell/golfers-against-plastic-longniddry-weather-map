@@ -46,7 +46,7 @@
         /* Compass image in the top-right corner of the viewport */
         #compass {
             position: fixed; /* Fixed position on the screen */
-            top: 150px; /* 150px from the top of the screen */
+            top: 20px; /* 20px from the top of the screen */
             right: 10px; /* 10px from the right of the screen */
             width: 100px;
             height: 100px;
@@ -61,10 +61,9 @@
         /* Reset button styles */
         #reset-button {
             position: fixed; /* Fixed position on the screen */
-            bottom: 50px; /* 50px from the bottom of the screen */
+            bottom: 20px; /* 20px from the bottom of the screen */
             right: 20px; /* 20px from the right of the screen */
             padding: 10px 20px;
-		font-family: 'sans-serif'; /* Use generic sans-serif font */
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -84,13 +83,16 @@
             }
 
             #reset-button {
-                bottom: 20px; /* Move reset button further down on mobile */
+                bottom: 30px; /* Move reset button further down on mobile */
                 font-size: 14px; /* Smaller button text for mobile */
+                right: 10px; /* Keep reset button aligned to the right */
             }
 
             #compass {
+                top: 10px; /* Keep compass at the top of the screen */
                 width: 80px; /* Smaller compass on mobile */
                 height: 80px;
+                right: 10px; /* Align compass to the right */
             }
         }
     </style>
