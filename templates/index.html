@@ -31,31 +31,8 @@
         /* Map styles */
         #map {
             height: calc(100vh - 80px); /* Make map take up all space except the title */
-            position: relative;
-            z-index: 1; /* Place map below the compass and reset button */
-        }
-
-        /* Wind Arrow Styles */
-        .wind-arrow {
-            width: 30px;
-            height: 30px;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        /* Compass image in the top-right corner of the viewport */
-        #compass {
-            position: fixed; /* Fixed position on the screen */
-            top: 150px; /* 20px from the top of the screen */
-            right: 10px; /* 10px from the right of the screen */
-            width: 100px;
-            height: 100px;
-            z-index: 101; /* Ensure compass stays above the title and map */
-        }
-
-        /* Custom cursor as golfer image */
-        body {
-            cursor: url('/static/golfer-cursor.png'), auto;
+            position: relative; /* Keeps the map in place */
+            z-index: 1; /* Ensures map stays below the compass and reset button */
         }
 
         /* Reset button styles */
@@ -76,6 +53,16 @@
             background-color: #45a049;
         }
 
+        /* Compass image in the top-right corner of the viewport */
+        #compass {
+            position: fixed; /* Fixed position on the screen */
+            top: 120px; /* Positioned below the title (adjust as needed) */
+            right: 10px; /* Align it to the right of the screen */
+            width: 100px;
+            height: 100px;
+            z-index: 101; /* Ensure compass stays above the map */
+        }
+
         /* Mobile Responsiveness */
         @media screen and (max-width: 600px) {
             h1 {
@@ -89,10 +76,10 @@
             }
 
             #compass {
-                top: 10px; /* Keep compass at the top of the screen */
+                top: 150px; /* Adjust the top value for mobile to move the compass down */
                 width: 80px; /* Smaller compass on mobile */
                 height: 80px;
-                right: 10px; /* Align compass to the right */
+                right: 10px; /* Keep it aligned to the right */
             }
         }
     </style>
