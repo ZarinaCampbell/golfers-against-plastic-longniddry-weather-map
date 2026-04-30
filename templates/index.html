@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Golfers Against Plastic: Wind Map</title>
     <meta charset="utf-8" />
@@ -7,17 +7,36 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map { height: 600px; }
+
+        /* Wind Arrow Styles */
         .wind-arrow {
             width: 30px;
             height: 30px;
             background-size: contain;
             background-repeat: no-repeat;
         }
+
+        /* Compass image in the top-right corner */
+        #compass {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Custom cursor as golfer image */
+        body {
+            cursor: url('/static/golfer-cursor.png'), auto;
+        }
     </style>
 </head>
 <body>
     <h1>Golfers Against Plastic: Wind Map</h1>
     <div id="map"></div>
+
+    <!-- Compass Image -->
+    <img id="compass" src="/static/compass.png" alt="Compass">
 
     <!-- Leaflet.js for map functionality -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -35,7 +54,7 @@
         function addWindArrow(lat, lng, windDirection) {
             var arrowIcon = L.divIcon({
                 className: 'wind-arrow',
-                html: '<div style="transform: rotate(' + windDirection + 'deg); width: 30px; height: 30px; background: url(\'arrow-icon.png\') no-repeat center center; background-size: contain;"></div>',
+                html: '<div style="transform: rotate(' + windDirection + 'deg); width: 30px; height: 30px; background: url(\'/static/arrow-icon.png\') no-repeat center center; background-size: contain;"></div>',
                 iconSize: [30, 30]  // Set the size of the arrow marker
             });
 
