@@ -5,24 +5,34 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
     <style>
         /* Full page styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            height: 100%; /* Ensure body takes full height */
         }
 
         /* Title Styling */
         h1 {
-            margin-top: 20px; /* Move title down slightly */
-            text-align: center; /* Keep title centered */
+            text-align: center;
+            margin-top: 20px; /* Space above title */
+            margin-bottom: 10px; /* Space below title */
+            font-family: 'sans-serif'; /* Use generic sans-serif font */
+            color: #800000; /* Maroon color */
+            background-color: #ffffff; /* White background for the title */
+            padding: 15px; /* Padding to give space around the text */
+            z-index: 100; /* Ensure title is above the map and other elements */
+            position: relative; /* Ensures title stays on top of the white space */
         }
 
         /* Map styles */
         #map {
-            height: 600px;
-            position: relative; /* Needed for absolute positioning of compass */
+            height: calc(100vh - 80px); /* Make map take up all space except the title */
+            position: relative;
+            z-index: 1; /* Place map below the compass and reset button */
         }
 
         /* Wind Arrow Styles */
@@ -33,13 +43,14 @@
             background-repeat: no-repeat;
         }
 
-        /* Compass image in the top-left corner of the map */
+        /* Compass image in the top-right corner of the viewport */
         #compass {
-            position: absolute; /* Place relative to map */
-            top: 10px; /* 10px from top */
-            left: 10px; /* 10px from left */
+            position: fixed; /* Fixed position on the screen */
+            top: 150px; /* 150px from the top of the screen */
+            right: 10px; /* 10px from the right of the screen */
             width: 100px;
             height: 100px;
+            z-index: 101; /* Ensure compass stays above the title and map */
         }
 
         /* Custom cursor as golfer image */
@@ -49,15 +60,17 @@
 
         /* Reset button styles */
         #reset-button {
-            position: absolute; /* Position relative to map */
-            bottom: 10px; /* 10px from the bottom of the map */
-            right: 10px; /* 10px from the right of the map */
+            position: fixed; /* Fixed position on the screen */
+            bottom: 50px; /* 50px from the bottom of the screen */
+            right: 20px; /* 20px from the right of the screen */
             padding: 10px 20px;
+		font-family: 'sans-serif'; /* Use generic sans-serif font */
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
+            z-index: 101; /* Ensure reset button stays above the map */
         }
 
         #reset-button:hover {
@@ -83,8 +96,9 @@
     </style>
 </head>
 <body>
-    <h1>Golfers Against Plastic: Wind Map</h1>
-    <div id="map"></div>
+    <h1>Golfers Against Plastic: Wind Map</h1> <!-- Title stays at the top -->
+    
+    <div id="map"></div> <!-- Map container -->
 
     <!-- Reset Button -->
     <button id="reset-button">Reset Map</button>
