@@ -6,7 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        #map { height: 600px; }
+        /* Full page styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Title Styling */
+        h1 {
+            margin-top: 20px; /* Move title down slightly */
+            text-align: center; /* Keep title centered */
+        }
+
+        /* Map styles */
+        #map {
+            height: 600px;
+            position: relative; /* Needed for absolute positioning of compass */
+        }
 
         /* Wind Arrow Styles */
         .wind-arrow {
@@ -16,11 +33,11 @@
             background-repeat: no-repeat;
         }
 
-        /* Compass image in the top-right corner */
+        /* Compass image in the top-left corner of the map */
         #compass {
-            position: fixed;
-            top: 10px;
-            right: 10px;
+            position: absolute; /* Place relative to map */
+            top: 10px; /* 10px from top */
+            left: 10px; /* 10px from left */
             width: 100px;
             height: 100px;
         }
@@ -30,18 +47,11 @@
             cursor: url('/static/golfer-cursor.png'), auto;
         }
 
-        /* Title and Reset Button Layout */
-        h1 {
-            margin-top: 60px; /* Move the title down to avoid overlap with reset button */
-            text-align: center;
-        }
-
         /* Reset button styles */
         #reset-button {
-            position: fixed;
-            top: 80px; /* Move button down to avoid overlap with title */
-            left: 50%;
-            transform: translateX(-50%); /* Center the reset button */
+            position: absolute; /* Position relative to map */
+            bottom: 10px; /* 10px from the bottom of the map */
+            right: 10px; /* 10px from the right of the map */
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
@@ -58,12 +68,16 @@
         @media screen and (max-width: 600px) {
             h1 {
                 font-size: 20px; /* Smaller title on mobile */
-                top: 20px; /* Add some space for mobile */
             }
 
             #reset-button {
-                top: 120px; /* Move the reset button further down on mobile */
+                bottom: 20px; /* Move reset button further down on mobile */
                 font-size: 14px; /* Smaller button text for mobile */
+            }
+
+            #compass {
+                width: 80px; /* Smaller compass on mobile */
+                height: 80px;
             }
         }
     </style>
